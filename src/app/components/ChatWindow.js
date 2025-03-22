@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { FiSend, FiMessageCircle } from "react-icons/fi";
+import { useState, useRef } from "react";
+import { FiSend, FiMessageCircle, FiUser, FiRefreshCw } from "react-icons/fi";
 
 const ChatWindow = () => {
   // Data percakapan yang telah diprogram
@@ -41,34 +41,39 @@ const ChatWindow = () => {
     },
   ];
 
-  // State untuk menyimpang pesan
+  // State untuk menyimpan pesan
   const [messages, setMessages] = useState([]);
-  // State untuk indikator mengetik
+  // State untuk indicator typing
   const [isTyping, setIsTyping] = useState(false);
-  // State untuk mengontrol apakah simulasi berjalan
+  // State untuk mengontrol jika simulasi sudah dimulai
   const [isStarted, setIsStarted] = useState(false);
-  //   Reference untuk scroll contained
+  // Reference untuk scroll container
   const messagesEndRef = useRef(null);
 
-  const scrollBottom = () => {
+  // Function untuk scroll ke pesan terbaru
+  const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  //   Fungsi untuk memulai simulasi chat
+  // Function untuk memulai simulasi chat
   const startSimulation = () => {
-    // Kalau udah mulai, ga bakal ngulang
     if (isStarted) return;
 
     setIsStarted(true);
-    // Mulai dari pesan pertama
     playNextMessage(0);
   };
 
-  //   Fungsi untuk menampilkan pesan berikutnya
+  // Function untuk reset simulasi
+  const resetSimulation = () => {
+    setMessages([]);
+    setIsTyping(false);
+    setIsStarted(false);
+  };
+
+  // Function untuk menampilkan pesan berikutnya
   const playNextMessage = (index) => {
-    // Kalau index nya udah lebih dari length script nya maka selesai
-    if (index >= scriptedMessages.lenght) {
-      return;
+    if (index >= scriptedMessages.length) {
+      return; // Selesai jika semua pesan sudah ditampilkan
     }
 
     const currentMessage = scriptedMessages[index];
@@ -82,73 +87,128 @@ const ChatWindow = () => {
         setIsTyping(false);
         // Tambahkan pesan ke daftar pesan
         setMessages((prev) => [...prev, currentMessage]);
+        scrollToBottom();
 
-        // Prepare pesan berikutnya setelah delay
+        // Siapkan pesan berikutnya setelah delay
         setTimeout(() => {
           playNextMessage(index + 1);
-        }, 1000);
+        }, 1000); // Delay antar pesan
       }, currentMessage.delay);
     } else {
       // Jika pesan dari user, tampilkan langsung tanpa typing
       setTimeout(() => {
         setMessages((prev) => [...prev, currentMessage]);
+        scrollToBottom();
 
-        // Prepare pesan berikutnya
+        // Siapkan pesan berikutnya
         setTimeout(() => {
           playNextMessage(index + 1);
-        }, 500);
+        }, 500); // Delay lebih pendek untuk pesan user
       }, currentMessage.delay);
     }
   };
 
   return (
-    <div className="border border-gray-200 rounded-lg shadow-lg bg-white h-[500px] flex flex-col">
+    <div className="border-1 border-gray-200 rounded-xl shadow-xl bg-white h-[600px] flex flex-col overflow-hidden">
       {/* Header Chat */}
-      <div className="border-b p-3 bg-blue-500 text-white rounded-t-lg">
-        <div className="flex items-center">
-          <FiMessageCircle className="mr-2" size={20} />
-          <div>
-            <h3 className="font-medium">Chat with Hasbi's Assistant</h3>
-            <p className="text-xs opacity-80">Ask me anything about Hasbi</p>
+      <div className="border-b-1 p-4 bg-blue-600 text-white rounded-t-xl">
+        <div className="flex justify-between items-center">
+          <div className="flex items-center">
+            <div className="bg-white/20 p-2 rounded-full mr-3">
+              <FiMessageCircle size={20} />
+            </div>
+            <div>
+              <h3 className="font-semibold text-lg">Hasbi AI Assistant</h3>
+              <p className="text-xs text-blue-100">
+                Available 24/7 to help you
+              </p>
+            </div>
           </div>
+
+          {/* Reset button */}
+          {isStarted && (
+            <button
+              onClick={resetSimulation}
+              className="p-2 rounded-full hover:bg-white/10 transition-colors"
+              title="Restart chat"
+            >
+              <FiRefreshCw size={18} />
+            </button>
+          )}
         </div>
       </div>
+
       {/* Chat Container */}
-      <div className="flex-1 p-4 overflow-y-auto bg-gray-50">
+      <div className="flex-1 p-4 overflow-y-auto bg-white">
         {/* Tombol untuk memulai simulasi */}
         {!isStarted && messages.length === 0 && (
-          <div className="flex justify-center items-center h-full">
+          <div className="flex flex-col justify-center items-center h-full">
+            <div className="text-center mb-6">
+              <div className="bg-blue-100 p-4 rounded-full inline-block mb-4">
+                <FiMessageCircle className="text-blue-500" size={32} />
+              </div>
+              <h2 className="text-xl font-semibold text-gray-800">
+                Welcome to the Chat
+              </h2>
+              <p className="text-gray-600 mt-1">
+                See how Hasbi AI assistant works
+              </p>
+            </div>
             <button
               onClick={startSimulation}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+              className="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors shadow-md hover:shadow-lg flex items-center"
             >
-              Start Chat Demo
+              <span>Start Demo</span>
+              <FiSend className="ml-2" size={16} />
             </button>
           </div>
         )}
 
         {/* Messages */}
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-3">
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`max-w-[80%] p-3 rounded-lg mb-3 ${
-                message.sender === "user"
-                  ? "bg-blue-500 text-white self-end rounded-br-none"
-                  : "bg-gray-200 text-gray-800 self-start rounded-bl-none"
+              className={`flex ${
+                message.sender === "user" ? "justify-end" : "justify-start"
               }`}
             >
-              {message.content}
+              {message.sender === "bot" && (
+                <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-500 flex items-center justify-center mr-2">
+                  <FiMessageCircle size={16} />
+                </div>
+              )}
+
+              <div
+                className={`max-w-[70%] p-3 rounded-2xl ${
+                  message.sender === "user"
+                    ? "bg-blue-500 text-white rounded-tr-none"
+                    : "bg-white border-1 border-gray-200 text-gray-800 rounded-tl-none shadow-sm"
+                }`}
+              >
+                {message.content}
+              </div>
+
+              {message.sender === "user" && (
+                <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center ml-2">
+                  <FiUser size={16} />
+                </div>
+              )}
             </div>
           ))}
 
           {/* Typing indicator */}
           {isTyping && (
-            <div className="max-w-[80%] p-3 rounded-lg mb-3 bg-gray-200 text-gray-800 self-start rounded-bl-none">
-              <div className="flex space-x-2">
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce delay-150"></div>
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce delay-300"></div>
+            <div className="flex justify-start">
+              <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-500 flex items-center justify-center mr-2">
+                <FiMessageCircle size={16} />
+              </div>
+              <div className="bg-white border-1 border-gray-200 p-4 rounded-2xl rounded-tl-none shadow-sm">
+                <div className="flex gap-2">
+                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-150"></div>
+                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-300"></div>
+                </div>
               </div>
             </div>
           )}
@@ -157,19 +217,26 @@ const ChatWindow = () => {
       </div>
 
       {/* Input Form */}
-      <div className="border-t p-3 flex">
-        <input
-          type="text"
-          placeholder="Type a message..."
-          className="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-1 focus:ring-blue-500"
-          disabled={!isStarted}
-        />
-        <button
-          className="bg-blue-500 text-white p-2 rounded-r-md hover:bg-blue-600 disabled:bg-gray-300"
-          disabled={!isStarted}
-        >
-          <FiSend />
-        </button>
+      <div className="border-t-1 p-3 bg-white shadow-inner">
+        <div className="flex items-center rounded-full border-1 border-gray-300 px-3 py-1 focus-within:ring-2 focus-within:ring-blue-300 focus-within:border-blue-500">
+          <input
+            type="text"
+            placeholder="Type a message..."
+            className="flex-1 px-2 py-2 outline-none text-gray-700"
+            disabled={!isStarted}
+          />
+          <button
+            className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed ml-2 shadow-sm"
+            disabled={!isStarted}
+          >
+            <FiSend size={16} />
+          </button>
+        </div>
+        <div className="text-xs text-center text-gray-500 mt-2">
+          {isStarted
+            ? "This is a demo chat - input is disabled"
+            : 'Click "Start Demo" to begin the conversation'}
+        </div>
       </div>
     </div>
   );

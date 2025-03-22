@@ -1,19 +1,1 @@
 @import "tailwindcss";
-
-@layer components {
-  /* Primary Button */
-  .btn-primary {
-    @apply w-full py-3 rounded-xl font-medium text-sm text-center transition-colors bg-indigo-700 text-white;
-  }
-  .chat-bubble {
-    @apply rounded-lg p-4 max-w-[80%] mb-4;
-  }
-
-  .chat-bubble-user {
-    @apply bg-primary text-white self-end;
-  }
-
-  .chat-bubble-bot {
-    @apply bg-gray-200 text-dark self-start;
-  }
-}
