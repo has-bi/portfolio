@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { FiSend, FiMessageCircle, FiUser, FiRefreshCw } from "react-icons/fi";
+import { TypeAnimation } from "react-type-animation";
 
 const ChatWindow = () => {
   // Data percakapan yang telah diprogram
@@ -10,34 +11,47 @@ const ChatWindow = () => {
       id: 1,
       sender: "bot",
       content:
-        "Hi there! I'm Hasbi's digital assistant. How can I help you today?",
+        "Hai! Gue asisten digital-nya Hasbi nih. Mau tanya-tanya soal coding atau gaming? Siap bantuin~",
       delay: 1000,
     },
     {
       id: 2,
       sender: "user",
-      content: "Can you tell me more about Hasbi's skills?",
+      content: "Main game apa aja sih?",
       delay: 2000,
     },
     {
       id: 3,
       sender: "bot",
       content:
-        "Absolutely! Hasbi is an AI Engineer who specializes in Next.js, Tailwind CSS, and Python. He builds intelligent web applications and has experience in machine learning models deployment.",
+        "Hasbi tuh player League of Legends sejak 2015 bro! Udah lama banget ya main LoL, tapi jujur aja masih stuck di Bronze sampe sekarang wkwkwk. Selalu main solo queue sih, jadinya gitu deh nasibnya...",
       delay: 3000,
     },
     {
       id: 4,
       sender: "user",
-      content: "That's impressive! Has he worked on any cool projects?",
+      content: "Main role apa biasanya? Champion favorit?",
       delay: 2000,
     },
     {
       id: 5,
       sender: "bot",
       content:
-        "Yes! One of his notable projects is an AI-powered content recommendation system for blogs. He is also built custom chatbots and data visualization tools. You can check out his projects section for more details!",
+        "Hasbi main role ADC sih, terutama Kai'Sa! Emang champion favoritnya banget. Kadang juga ngambil role Jungle kalau lagi bosen. Btw, kalau ada yang mau duo rank bareng, Hasbi open banget kok buat nge-party. Siapa tau bisa naik ke Silver bareng-bareng, kan lebih seru main rame-rame daripada sendirian terus wkwkwk!",
       delay: 3000,
+    },
+    {
+      id: 6,
+      sender: "user",
+      content: "Kenapa suka banget sama Kai'Sa?",
+      delay: 2000,
+    },
+    {
+      id: 7,
+      sender: "bot",
+      content:
+        "Kai'Sa tuh champion yang versatile banget menurut Hasbi. Designnya keren, damage-nya gede, plus mobility-nya oke. Dia bisa adaptasi ke banyak situasi, bisa build AP atau AD tergantung match-up. Plus lore-nya juga menarik sih, ceritanya dia survive di Void. Hasbi suka banget collectionin skin Kai'Sa juga, favorit dia K/DA All Out sama Lagoon Dragon! Udah pernah coba main Kai'Sa juga?",
+      delay: 3500,
     },
   ];
 
@@ -45,6 +59,8 @@ const ChatWindow = () => {
   const [messages, setMessages] = useState([]);
   // State untuk indicator typing
   const [isTyping, setIsTyping] = useState(false);
+  // State untuk pesan yang sedang diketik
+  const [currentTypingMessage, setCurrentTypingMessage] = useState("");
   // State untuk mengontrol jika simulasi sudah dimulai
   const [isStarted, setIsStarted] = useState(false);
   // Reference untuk scroll container
@@ -54,6 +70,12 @@ const ChatWindow = () => {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      scrollToBottom();
+    }
+  }, [messages]);
 
   // Function untuk memulai simulasi chat
   const startSimulation = () => {
@@ -67,6 +89,7 @@ const ChatWindow = () => {
   const resetSimulation = () => {
     setMessages([]);
     setIsTyping(false);
+    setCurrentTypingMessage("");
     setIsStarted(false);
   };
 
@@ -81,24 +104,24 @@ const ChatWindow = () => {
     // Jika pesan dari bot, tampilkan indikator typing dulu
     if (currentMessage.sender === "bot") {
       setIsTyping(true);
+      setCurrentTypingMessage(currentMessage.content);
 
-      // Tampilkan indikator typing selama delay tertentu
+      // Tampilkan selama delay tertentu + waktu untuk typing animation
       setTimeout(() => {
         setIsTyping(false);
+        setCurrentTypingMessage("");
         // Tambahkan pesan ke daftar pesan
         setMessages((prev) => [...prev, currentMessage]);
-        scrollToBottom();
 
         // Siapkan pesan berikutnya setelah delay
         setTimeout(() => {
           playNextMessage(index + 1);
-        }, 1000); // Delay antar pesan
-      }, currentMessage.delay);
+        }, 500); // Delay antar pesan
+      }, currentMessage.delay + currentMessage.content.length * 20); // Waktu typing berdasarkan panjang teks
     } else {
       // Jika pesan dari user, tampilkan langsung tanpa typing
       setTimeout(() => {
         setMessages((prev) => [...prev, currentMessage]);
-        scrollToBottom();
 
         // Siapkan pesan berikutnya
         setTimeout(() => {
@@ -109,19 +132,16 @@ const ChatWindow = () => {
   };
 
   return (
-    <div className="border-1 border-gray-200 rounded-xl shadow-xl bg-white h-[600px] flex flex-col overflow-hidden">
+    <div className="bg-[#E8E8E8] rounded-lg shadow-xl overflow-hidden h-[600px] flex flex-col">
       {/* Header Chat */}
-      <div className="border-b-1 p-4 bg-blue-600 text-white rounded-t-xl">
+      <div className="p-4 bg-[#E8E8E8] text-gray-800">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
-            <div className="bg-white/20 p-2 rounded-full mr-3">
-              <FiMessageCircle size={20} />
+            <div className="bg-gradient-to-r from-[#DA7757] to-[#ac573a] p-2 rounded-full mr-3 flex items-center justify-center shadow-lg">
+              <FiMessageCircle size={20} className="text-white" />
             </div>
             <div>
-              <h3 className="font-semibold text-lg">Hasbi AI Assistant</h3>
-              <p className="text-xs text-blue-100">
-                Available 24/7 to help you
-              </p>
+              <h3 className="font-semibold text-lg">Model: Claude-0 </h3>
             </div>
           </div>
 
@@ -129,34 +149,34 @@ const ChatWindow = () => {
           {isStarted && (
             <button
               onClick={resetSimulation}
-              className="p-2 rounded-full hover:bg-white/10 transition-colors"
+              className="p-2 rounded-full hover:bg-white transition-colors"
               title="Restart chat"
             >
-              <FiRefreshCw size={18} />
+              <FiRefreshCw size={18} className="text-[#DA7757]" />
             </button>
           )}
         </div>
       </div>
 
       {/* Chat Container */}
-      <div className="flex-1 p-4 overflow-y-auto bg-white">
+      <div className="flex-1 p-4 overflow-y-auto bg-[#E8E8E8] text-gray-800">
         {/* Tombol untuk memulai simulasi */}
         {!isStarted && messages.length === 0 && (
           <div className="flex flex-col justify-center items-center h-full">
             <div className="text-center mb-6">
-              <div className="bg-blue-100 p-4 rounded-full inline-block mb-4">
-                <FiMessageCircle className="text-blue-500" size={32} />
+              <div className="bg-gradient-to-r from-[#DA7757] to-[#ac573a] p-4 rounded-full inline-block mb-4 shadow-lg">
+                <FiMessageCircle className="text-white" size={32} />
               </div>
               <h2 className="text-xl font-semibold text-gray-800">
-                Welcome to the Chat
+                Ask Hasbi's Assistant
               </h2>
               <p className="text-gray-600 mt-1">
-                See how Hasbi AI assistant works
+                See how a conversation with Hasbi's AI works
               </p>
             </div>
             <button
               onClick={startSimulation}
-              className="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors shadow-md hover:shadow-lg flex items-center"
+              className="px-6 py-3 bg-gradient-to-r from-[#DA7757] to-[#ac573a] text-white rounded-full hover:opacity-90 transition-opacity shadow-lg flex items-center"
             >
               <span>Start Demo</span>
               <FiSend className="ml-2" size={16} />
@@ -165,50 +185,49 @@ const ChatWindow = () => {
         )}
 
         {/* Messages */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-6">
           {messages.map((message) => (
             <div
               key={message.id}
               className={`flex ${
-                message.sender === "user" ? "justify-end" : "justify-start"
+                message.sender === "user" ? "items-start" : "items-start"
               }`}
             >
               {message.sender === "bot" && (
-                <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-500 flex items-center justify-center mr-2">
-                  <FiMessageCircle size={16} />
+                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#DA7757] to-[#ac573a] flex items-center justify-center mr-3 flex-shrink-0 shadow-md">
+                  <FiMessageCircle size={16} className="text-white" />
+                </div>
+              )}
+
+              {message.sender === "user" && (
+                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center mr-3 flex-shrink-0">
+                  <FiUser size={16} className="text-gray-800" />
                 </div>
               )}
 
               <div
-                className={`max-w-[70%] p-3 rounded-2xl ${
-                  message.sender === "user"
-                    ? "bg-blue-500 text-white rounded-tr-none"
-                    : "bg-white border-1 border-gray-200 text-gray-800 rounded-tl-none shadow-sm"
+                className={`max-w-[90%] py-2 ${
+                  message.sender === "user" ? "text-gray-800" : "text-gray-800"
                 }`}
               >
                 {message.content}
               </div>
-
-              {message.sender === "user" && (
-                <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center ml-2">
-                  <FiUser size={16} />
-                </div>
-              )}
             </div>
           ))}
 
-          {/* Typing indicator */}
+          {/* Typing indicator with TypeAnimation */}
           {isTyping && (
-            <div className="flex justify-start">
-              <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-500 flex items-center justify-center mr-2">
-                <FiMessageCircle size={16} />
+            <div className="flex items-start">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#DA7757] to-[#ac573a] flex items-center justify-center mr-3 flex-shrink-0 shadow-md">
+                <FiMessageCircle size={16} className="text-white" />
               </div>
-              <div className="bg-white border-1 border-gray-200 p-4 rounded-2xl rounded-tl-none shadow-sm">
-                <div className="flex gap-2">
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-150"></div>
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-300"></div>
-                </div>
+              <div className="py-2 text-gray-800 max-w-[90%]">
+                <TypeAnimation
+                  sequence={[currentTypingMessage]}
+                  wrapper="span"
+                  speed={80}
+                  cursor={true}
+                />
               </div>
             </div>
           )}
@@ -217,25 +236,20 @@ const ChatWindow = () => {
       </div>
 
       {/* Input Form */}
-      <div className="border-t-1 p-3 bg-white shadow-inner">
-        <div className="flex items-center rounded-full border-1 border-gray-300 px-3 py-1 focus-within:ring-2 focus-within:ring-blue-300 focus-within:border-blue-500">
+      <div className="p-4 bg-[#E8E8E8]">
+        <div className="flex items-center rounded-lg bg-white px-4 py-2 focus-within:ring-2 focus-within:ring-[#DA7757]">
           <input
             type="text"
-            placeholder="Type a message..."
-            className="flex-1 px-2 py-2 outline-none text-gray-700"
+            placeholder="What is an AI Engineer?"
+            className="flex-1 bg-transparent outline-none text-gray-800 placeholder-gray-400"
             disabled={!isStarted}
           />
           <button
-            className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed ml-2 shadow-sm"
+            className="bg-gradient-to-r from-[#DA7757] to-[#ac573a] text-white p-2 rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed ml-2"
             disabled={!isStarted}
           >
             <FiSend size={16} />
           </button>
-        </div>
-        <div className="text-xs text-center text-gray-500 mt-2">
-          {isStarted
-            ? "This is a demo chat - input is disabled"
-            : 'Click "Start Demo" to begin the conversation'}
         </div>
       </div>
     </div>
