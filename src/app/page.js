@@ -1,21 +1,32 @@
 "use client";
 
 import ChatWindow from "./components/ChatWindow";
+import Card from "./components/Card";
 
 export default function Home() {
+  const cards = [
+    {
+      title: "Hasbi Hassadiqin",
+      description: "Hi! I'm an AI Engineer",
+      imageSrc: "",
+      bgGradient: "from-blue-500 to-indigo-900",
+    },
+  ];
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Main Content */}
       <main className="flex-1 container mx-auto px-4 py-12 flex flex-col md:flex-row items-center md:items-start gap-10">
         {/* Left Column - Text Content */}
-        <div className="w-full md:w-1/2 md:pt-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            Portfolio Agent
-          </h2>
-          <p className="text-lg text-gray-600 mb-6">
-            Trying to create an Agent for personal website, so user can asking
-            anything that related to my works, but yaaa its still an prototype.
-          </p>
+        <div className="w-full md:grid-cols-2">
+          {cards.map((card, index) => (
+            <Card
+              key={index}
+              title={card.title}
+              description={card.description}
+              imageSrc={card.imageSrc}
+              bgGradient={card.bgGradient}
+            />
+          ))}
         </div>
 
         {/* Right Column - Chat Window */}
