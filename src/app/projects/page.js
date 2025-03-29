@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FiArrowLeft } from "react-icons/fi";
 import ProjectCard from "@/components/molecules/ProjectCard";
+import projectsData from "@/data/projectsData";
 
 export default function ProjectsPage() {
   const [scrolled, setScrolled] = useState(false);
@@ -16,63 +17,6 @@ export default function ProjectsPage() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Project data
-  const projectsData = [
-    {
-      title: "PO Tracker",
-      description:
-        "Automated purchase order processing using Document AI and Cloud Functions",
-      imageSrc: "/images/po-tracker.jpg",
-      link: "/projects/po-tracker",
-    },
-    {
-      title: "Analytics Dashboard",
-      description:
-        "Interactive data visualization platform with real-time insights",
-      imageSrc: "/images/dashboard.jpg",
-      link: "/projects/analytics-dashboard",
-    },
-    {
-      title: "E-commerce Platform",
-      description: "Full-stack online shopping solution with modern UX",
-      imageSrc: "/images/ecommerce.jpg",
-      link: "/projects/ecommerce-platform",
-    },
-    {
-      title: "Data Analytics Tool",
-      description: "Big data processing engine with intuitive reporting",
-      imageSrc: "/images/analytics.jpg",
-      link: "/projects/data-analytics-tool",
-    },
-    {
-      title: "AI Chatbot",
-      description: "Intelligent conversation assistant for customer support",
-      imageSrc: "/images/chatbot.jpg",
-      link: "/projects/ai-chatbot",
-    },
-    {
-      title: "Mobile App",
-      description:
-        "Cross-platform mobile application with offline capabilities",
-      imageSrc: "/images/mobile.jpg",
-      link: "/projects/mobile-app",
-    },
-    {
-      title: "Web Portfolio",
-      description:
-        "Responsive portfolio website showcasing your work with modern design principles",
-      imageSrc: "/images/portfolio.jpg",
-      link: "/projects/web-portfolio",
-    },
-    {
-      title: "CMS Development",
-      description:
-        "Custom content management system tailored to your specific business requirements",
-      imageSrc: "/images/cms.jpg",
-      link: "/projects/cms-development",
-    },
-  ];
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white">
@@ -109,7 +53,7 @@ export default function ProjectsPage() {
           </div>
 
           {/* Projects Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {projectsData.map((project, index) => (
               <ProjectCard
                 key={index}

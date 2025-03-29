@@ -79,9 +79,12 @@ export default function POTrackerProject() {
             <h1 className="text-5xl font-bold mb-6">
               Purchase Order Data Entry Automations
             </h1>
-            <h2 className="text-2xl text-[#CBFF4D]">Using Document AI</h2>
+            <h2 className="text-2xl text-[#CBFF4D]">
+              Running on GCP (Document AI, Cloud Run, Big Query)
+            </h2>
           </motion.div>
 
+          {/* Hero Cover */}
           <motion.div
             className="w-full h-[50vh] rounded-xl overflow-hidden relative mb-12"
             initial={{ opacity: 0, scale: 0.95 }}
@@ -89,12 +92,12 @@ export default function POTrackerProject() {
             transition={{ duration: 0.7 }}
           >
             <Image
-              src="/images/po-tracker-hero.jpg"
+              src="/images/projects/po-tracker-hero.png"
               alt="PO Tracker Dashboard"
               fill
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/40"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/20"></div>
           </motion.div>
 
           <motion.div
@@ -199,9 +202,9 @@ export default function POTrackerProject() {
                 <p className="text-gray-300 leading-relaxed">
                   As a developer, I faced a complex challenge in creating an
                   automated purchase order processing system. The core technical
-                  hurdles were extracting data from 7 different distributor
-                  formats and developing a robust preprocessing pipeline that
-                  could handle diverse document structures.
+                  hurdles were extracting data from 7 different distributor (and
+                  still growth) formats and developing a robust preprocessing
+                  pipeline that could handle diverse document structures.
                 </p>
                 <p className="text-gray-300 leading-relaxed mt-4">
                   Connecting to Gmail and automatically retrieving attachments
@@ -254,10 +257,31 @@ export default function POTrackerProject() {
               </div>
             </motion.div>
           </motion.div>
+
+          {/* Sample PO */}
+          <motion.div
+            className="mt-16 bg-white rounded-xl p-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <div className="relative h-[300px] w-full">
+              <Image
+                src="/images/projects/po-tracker-sample.png"
+                alt="PO Tracker System Architecture"
+                fill
+                className="object-contain"
+              />
+            </div>
+            <p className="text-center text-gray-800 text-sm mt-4">
+              Sample purchase order documents processed by the system
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      {/* How It Works Section */}
+      {/* System Architecture Section */}
       <section className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -267,12 +291,36 @@ export default function POTrackerProject() {
             variants={fadeIn}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl font-bold mb-4">How It Works</h2>
+            <h2 className="text-3xl font-bold mb-4">System Architecture</h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              An automated system that processes purchase orders from multiple
-              distributors with minimal human intervention.
+              A comprehensive overview of how the PO Tracker system is
+              structured and integrated.
             </p>
           </motion.div>
+
+          {/* Architecture Diagram */}
+          <motion.div
+            className="mb-16 bg-white rounded-xl p-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <div className="relative h-[500px] w-full">
+              <Image
+                src="/images/projects/po-tracker-architecture.png"
+                alt="PO Tracker System Architecture"
+                fill
+                className="object-contain"
+              />
+            </div>
+            <p className="text-center text-gray-800 text-sm mt-4">
+              System architecture diagram showing the flow of data through
+              various Google Cloud components
+            </p>
+          </motion.div>
+
+          <h3 className="text-2xl font-bold mb-8">How It Works</h3>
 
           <motion.div
             className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"

@@ -18,8 +18,8 @@ export default function ProjectsSection() {
           </p>
         </div>
 
-        {/* Projects Grid - 4 columns on desktop, 2 on tablet, 1 on mobile */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        {/* Projects Grid - 3 columns on desktop, 2 on tablet, 1 on mobile */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {projectsData.map((project, index) => (
             <ProjectCard
               key={index}
@@ -33,12 +33,7 @@ export default function ProjectsSection() {
 
         {/* All Projects Button */}
         <div className="mt-16 text-center">
-          <Button
-            href="/projects"
-            variant="primary"
-            className="px-8 py-4"
-            icon={<FiExternalLink size={18} />}
-          >
+          <Button href="/projects" variant="primary" className="px-8 py-4">
             View All Projects
           </Button>
         </div>

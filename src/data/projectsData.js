@@ -1,9 +1,10 @@
 const projectsData = [
   {
-    title: "Theramind",
-    description: "A wellness webapps for mood tracking",
-    imageSrc: "/images/dashboard.jpg",
-    link: "/projects/analytics-dashboard",
+    title: "Youvit PO Tracker",
+    description:
+      "Automated purchase order processing using Document AI and Cloud Functions",
+    imageSrc: "/images/projects/po-tracker.png",
+    link: "/projects/po-tracker",
   },
   {
     title: "E-commerce Platform",

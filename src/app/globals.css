@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-plus-jakarta);
+}
+
 :root {
   /* Light Mode Colors */
   --color-background: #f5f7fa;
