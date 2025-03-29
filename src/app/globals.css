@@ -1,1 +1,112 @@
 @import "tailwindcss";
+
+:root {
+  /* Light Mode Colors */
+  --color-background: #f5f7fa;
+  --color-background-dark: #121212;
+  --color-text: #333333;
+  --color-text-dark: #ffffff;
+  --color-accent: #cbff4d;
+  --color-secondary: #a594f9;
+  --color-tertiary: #7371fc;
+
+  /* UI Elements */
+  --color-card-bg: white;
+  --color-card-bg-dark: #1e1e1e;
+  --color-border: #e2e8f0;
+  --color-border-dark: #2d2d2d;
+  --color-input-bg: #f8fafc;
+  --color-input-bg-dark: #2d2d2d;
+
+  /* Chat Colors */
+  --color-user-bubble: var(--color-tertiary);
+  --color-user-bubble-dark: var(--color-accent);
+  --color-bot-bubble: #f1f5f9;
+  --color-bot-bubble-dark: #2d2d2d;
+}
+
+/* Dark Mode Overrides for Chat Component */
+.dark-theme {
+  --color-card-bg: var(--color-card-bg-dark);
+  --color-border: var(--color-border-dark);
+  --color-input-bg: var(--color-input-bg-dark);
+  --color-user-bubble: var(--color-user-bubble-dark);
+  --color-bot-bubble: var(--color-bot-bubble-dark);
+  --color-text: var(--color-text-dark);
+}
+
+/* Custom Gradients */
+.bg-gradient-purple {
+  background: linear-gradient(to right, #a594f9, #7371fc);
+}
+
+.bg-gradient-neon {
+  background: linear-gradient(to right, #cbff4d, #adf53b);
+}
+
+/* Text Gradient */
+.text-gradient {
+  background: linear-gradient(to right, #a594f9, #7371fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Typing Animation Dots */
+.typing-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: #a594f9;
+  animation: bounce 1.5s infinite;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.25rem);
+  }
+}
+
+/* Base Styles */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+}
+
+/* Animation for Scroll Indicator */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 2s infinite;
+}
+
+/* Fixed header blur effect */
+.backdrop-blur-sm {
+  backdrop-filter: blur(8px);
+}
