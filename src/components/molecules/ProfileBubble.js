@@ -24,12 +24,6 @@ export default function ProfileBubble({
           </div>
         )}
       </div>
-
-      {/* Speech Bubble */}
-      <div className="absolute top-0 right-0 transform translate-x-8 -translate-y-2 bg-white px-4 py-2 rounded-xl shadow-md">
-        <div className="absolute left-0 bottom-0 transform -translate-x-2 translate-y-1 rotate-45 w-4 h-4 bg-white"></div>
-        <p className="text-sm font-medium">{bubbleText}</p>
-      </div>
     </div>
   );
 }

@@ -1,31 +1,39 @@
 const projectsData = [
   {
-    title: "Strato Protocol",
-    description:
-      "Web3 platform with a focus on user experience and intuitive interface design",
-    imageSrc: "/images/strato.jpg",
-    timeline: 1,
+    title: "Theramind",
+    description: "A wellness webapps for mood tracking",
+    imageSrc: "/images/dashboard.jpg",
+    link: "/projects/analytics-dashboard",
   },
   {
-    title: "Digital Agency",
-    description:
-      "Full website development for a creative digital marketing agency",
-    imageSrc: "/images/agency.jpg",
-    timeline: 2,
+    title: "E-commerce Platform",
+    description: "Full-stack online shopping solution with modern UX",
+    imageSrc: "/images/ecommerce.jpg",
+    link: "/projects/ecommerce-platform",
   },
   {
-    title: "Tatoo Salon",
-    description:
-      "Branding and website for an upscale tattoo salon focusing on premium clientele",
-    imageSrc: "/images/tatoo.jpg",
-    timeline: 3,
+    title: "Data Analytics Tool",
+    description: "Big data processing engine with intuitive reporting",
+    imageSrc: "/images/analytics.jpg",
+    link: "/projects/data-analytics-tool",
   },
   {
-    title: "Matacode",
-    description:
-      "Development platform with integrated AI tools for code optimization",
-    imageSrc: "/images/matacode.jpg",
-    timeline: 4,
+    title: "AI Chatbot",
+    description: "Intelligent conversation assistant for customer support",
+    imageSrc: "/images/chatbot.jpg",
+    link: "/projects/ai-chatbot",
+  },
+  {
+    title: "Mobile App",
+    description: "Cross-platform mobile application with offline capabilities",
+    imageSrc: "/images/mobile.jpg",
+    link: "/projects/mobile-app",
+  },
+  {
+    title: "Placeholder",
+    description: "Lorem ipsum",
+    imageSrc: "/images/mobile.jpg",
+    link: "/projects/mobile-app",
   },
 ];
 

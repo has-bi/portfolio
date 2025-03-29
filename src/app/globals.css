@@ -266,3 +266,15 @@ section.full-width-cards > div {
     height: 350px;
   }
 }
+
+.project-card .project-description {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition-delay: 0.1s;
+}
+
+.project-card:hover .project-description {
+  opacity: 1;
+  transform: translateY(0);
+}

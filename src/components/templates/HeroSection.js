@@ -12,7 +12,7 @@ export default function HeroSection() {
       <div className="text-center max-w-3xl mx-auto">
         {/* Profile Image with Speech Bubble */}
         <ProfileBubble
-          imageSrc="/images/profile.jpg"
+          imageSrc="/images/avatar.png"
           altText="Hasbi"
           bubbleText="Hi, I'm Hasbi 👋"
         />
