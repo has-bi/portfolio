@@ -110,3 +110,52 @@ body {
 .backdrop-blur-sm {
   backdrop-filter: blur(8px);
 }
+
+/* Add these to your globals.css file */
+
+/* Line clamp utilities */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+/* Smooth horizontal scrolling */
+.overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+
+.overflow-x-auto::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+/* Add a faded edge to indicate more content */
+.horizontal-fade {
+  position: relative;
+}
+
+.horizontal-fade::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 40px;
+  background: linear-gradient(to right, transparent, white);
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .horizontal-fade::after {
+    display: none;
+  }
+}
