@@ -10,6 +10,9 @@ import {
   FiSmartphone,
   FiCode,
   FiUsers,
+  FiServer,
+  FiDatabase,
+  FiLayers,
 } from "react-icons/fi";
 import { motion } from "framer-motion";
 
@@ -90,16 +93,13 @@ export default function TheraMindProject() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7 }}
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/20 flex items-center justify-center">
-              <div className="p-8 bg-black/40 rounded-xl backdrop-blur-sm text-center">
-                <h3 className="text-xl md:text-2xl font-bold mb-2">
-                  TheraMind Demo
-                </h3>
-                <p className="text-gray-300 text-sm">
-                  App demo video will appear here
-                </p>
-              </div>
-            </div>
+            <Image
+              src="/images/projects/theramind-hero.png"
+              alt="TheraMind App"
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/20"></div>
           </motion.div>
 
           <motion.div
@@ -160,6 +160,12 @@ export default function TheraMindProject() {
                       </span>
                       <span className="text-xs bg-[#2A2A2A] text-[#CBFF4D] px-2 py-1 rounded">
                         OpenAI API
+                      </span>
+                      <span className="text-xs bg-[#2A2A2A] text-[#CBFF4D] px-2 py-1 rounded">
+                        Prisma
+                      </span>
+                      <span className="text-xs bg-[#2A2A2A] text-[#CBFF4D] px-2 py-1 rounded">
+                        PostgreSQL
                       </span>
                     </div>
                   </div>
@@ -325,85 +331,146 @@ export default function TheraMindProject() {
             </motion.div>
           </motion.div>
 
-          {/* Code Snippet */}
+          {/* App Screenshots */}
           <motion.div
-            className="mt-12 bg-[#1A1A1A] rounded-xl overflow-hidden"
+            className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <div className="bg-[#2A2A2A] py-3 px-4 flex items-center">
-              <div className="text-sm font-mono text-[#CBFF4D]">
-                Multi-step Form Context (Key Technical Challenge)
+            <div className="bg-[#1A1A1A] rounded-lg overflow-hidden">
+              <div className="aspect-[9/16] relative">
+                <Image
+                  src="/images/projects/theramind-mood.png"
+                  alt="TheraMind Mood Selection Screen"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-2">
+                <p className="text-xs text-center text-gray-400">
+                  Mood Selection
+                </p>
               </div>
             </div>
-            <div className="p-4 text-sm font-mono text-gray-300 overflow-x-auto">
-              <pre>
-                {`// Form context to manage state across multiple pages
-export const FormContext = createContext();
-
-export function FormProvider({ children }) {
-  // State for each step of the process
-  const [moodData, setMoodData] = useState({
-    mood: "",
-    intensity: 0,
-    factors: [],
-    date: new Date()
-  });
-  
-  const [journalData, setJournalData] = useState({
-    content: "",
-    aiSuggestions: []
-  });
-  
-  const [recapData, setRecapData] = useState({
-    summary: "",
-    insights: []
-  });
-
-  // Function to save all data at once
-  const submitFullForm = async () => {
-    try {
-      const response = await fetch('/api/entries/create', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          mood: moodData,
-          journal: journalData,
-          recap: recapData
-        })
-      });
-      
-      if (!response.ok) throw new Error('Failed to save data');
-      return await response.json();
-    } catch (error) {
-      console.error('Error saving form data:', error);
-      throw error;
-    }
-  };
-
-  return (
-    <FormContext.Provider
-      value={{
-        moodData, setMoodData,
-        journalData, setJournalData,
-        recapData, setRecapData,
-        submitFullForm
-      }}
-    >
-      {children}
-    </FormContext.Provider>
-  );
-}`}
-              </pre>
+            <div className="bg-[#1A1A1A] rounded-lg overflow-hidden">
+              <div className="aspect-[9/16] relative">
+                <Image
+                  src="/images/projects/theramind-chat.png"
+                  alt="TheraMind Chat Interface"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-2">
+                <p className="text-xs text-center text-gray-400">
+                  AI Chat Interface
+                </p>
+              </div>
+            </div>
+            <div className="bg-[#1A1A1A] rounded-lg overflow-hidden">
+              <div className="aspect-[9/16] relative">
+                <Image
+                  src="/images/projects/theramind-journal.png"
+                  alt="TheraMind Journal Summary"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-2">
+                <p className="text-xs text-center text-gray-400">
+                  Journal Recap
+                </p>
+              </div>
+            </div>
+            <div className="bg-[#1A1A1A] rounded-lg overflow-hidden">
+              <div className="aspect-[9/16] relative">
+                <Image
+                  src="/images/projects/theramind-dashboard.png"
+                  alt="TheraMind Dashboard"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-2">
+                <p className="text-xs text-center text-gray-400">
+                  User Dashboard
+                </p>
+              </div>
             </div>
           </motion.div>
+
+          {/* Video Demo Section */}
+          <motion.div
+            className="mt-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <h3 className="text-2xl font-bold mb-6 text-center">Video Demo</h3>
+            <div className="bg-[#1A1A1A] rounded-xl p-5 overflow-hidden">
+              <div className="aspect-video w-full max-w-4xl mx-auto">
+                <iframe
+                  className="w-full h-full rounded-lg"
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                  title="TheraMind App Demo"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+              <p className="text-gray-400 text-sm text-center mt-4">
+                Watch a complete walkthrough of the TheraMind application
+                features
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Visit App Button */}
+          <motion.div
+            className="mt-12 flex justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <a
+              href="https://theramind.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#CBFF4D] text-gray-900 px-8 py-4 rounded-lg font-bold flex items-center hover:bg-[#D8FF7A] transition-colors"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 mr-2"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+              Visit TheraMind App
+            </a>
+          </motion.div>
+          <div className="text-center mt-4">
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              <i>
+                It might be error while visiting the apps due to limited service
+                from the database or API
+              </i>
+            </p>
+          </div>
         </div>
       </section>
 
       {/* Development Challenges Section */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 bg-[#121212]">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial="hidden"
@@ -569,7 +636,7 @@ export function FormProvider({ children }) {
       </section>
 
       {/* Learning Outcomes Section */}
-      <section className="py-20 px-6 bg-[#121212]">
+      <section className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial="hidden"
@@ -672,7 +739,7 @@ export function FormProvider({ children }) {
       </section>
 
       {/* Conclusion Section */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 bg-[#121212]">
         <div className="max-w-3xl mx-auto">
           <motion.div
             initial="hidden"
